@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troublesho">
+<meta name="description" content="九、一般的性能分析思路1、网络瓶颈：如带宽，流量等形成的网络环境2、配置参数：如中间件的基本配置，数据库JDBC连接池等；3、扩容升级：增加应用服务器，数据库服务器以及客户机的CPU、内存、硬盘等配置4、SQL优化：如全表扫描、未创建索引、限制结果返回集等；5、部署架构：如部署负载均衡服务器及负载均衡的策略、分布式集群">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/12/05/hello-world/index.html">
+<meta property="og:title" content="谈谈WEB性能测试（三）">
+<meta property="og:url" content="http://yoursite.com/2018/03/20/谈谈WEB性能测试（三）/index.html">
 <meta property="og:site_name" content="寂静的声音">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-12-05T00:26:12.375Z">
+<meta property="og:description" content="九、一般的性能分析思路1、网络瓶颈：如带宽，流量等形成的网络环境2、配置参数：如中间件的基本配置，数据库JDBC连接池等；3、扩容升级：增加应用服务器，数据库服务器以及客户机的CPU、内存、硬盘等配置4、SQL优化：如全表扫描、未创建索引、限制结果返回集等；5、部署架构：如部署负载均衡服务器及负载均衡的策略、分布式集群策略。 十、SQL慢分析先确定：系统慢还是SQL慢？思考一下：以下这个SQL有哪">
+<meta property="og:image" content="http://yoursite.com/uploads/photo/2017/4ff2cd5e-4b42-4349-ad40-92606052f6c7.png!large">
+<meta property="og:updated_time" content="2018-03-20T14:44:51.779Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="谈谈WEB性能测试（三）">
+<meta name="twitter:description" content="九、一般的性能分析思路1、网络瓶颈：如带宽，流量等形成的网络环境2、配置参数：如中间件的基本配置，数据库JDBC连接池等；3、扩容升级：增加应用服务器，数据库服务器以及客户机的CPU、内存、硬盘等配置4、SQL优化：如全表扫描、未创建索引、限制结果返回集等；5、部署架构：如部署负载均衡服务器及负载均衡的策略、分布式集群策略。 十、SQL慢分析先确定：系统慢还是SQL慢？思考一下：以下这个SQL有哪">
+<meta name="twitter:image" content="http://yoursite.com/uploads/photo/2017/4ff2cd5e-4b42-4349-ad40-92606052f6c7.png!large">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/05/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/20/谈谈WEB性能测试（三）/"/>
 
 
 
 
 
-  <title>Hello World | 寂静的声音</title>
+  <title>谈谈WEB性能测试（三） | 寂静的声音</title>
   
 
 
@@ -231,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/谈谈WEB性能测试（三）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Grace">
@@ -248,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">谈谈WEB性能测试（三）</h1>
         
 
         <div class="post-meta">
@@ -260,8 +262,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-05T08:26:12+08:00">
-                2017-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-20T22:44:47+08:00">
+                2018-03-20
               </time>
             
 
@@ -298,15 +300,21 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h4 id="九、一般的性能分析思路"><a href="#九、一般的性能分析思路" class="headerlink" title="九、一般的性能分析思路"></a>九、一般的性能分析思路</h4><p><img src="/uploads/photo/2017/4ff2cd5e-4b42-4349-ad40-92606052f6c7.png!large" alt=""><br>1、网络瓶颈：如带宽，流量等形成的网络环境<br>2、配置参数：如中间件的基本配置，数据库JDBC连接池等；<br>3、扩容升级：增加应用服务器，数据库服务器以及客户机的CPU、内存、硬盘等配置<br>4、SQL优化：如全表扫描、未创建索引、限制结果返回集等；<br>5、部署架构：如部署负载均衡服务器及负载均衡的策略、分布式集群策略。</p>
+<h4 id="十、SQL慢分析"><a href="#十、SQL慢分析" class="headerlink" title="十、SQL慢分析"></a>十、SQL慢分析</h4><p><strong>先确定：系统慢还是SQL慢？</strong><br>思考一下：以下这个SQL有哪里可以提升性能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/* dynamic native SQL query */</span><br><span class="line">select T__.*, rownum as ROWNUM__</span><br><span class="line"> from (SELECT DISTINCT (ETOR.ETOR_ID), etor.org_id</span><br><span class="line">FROM ET_ORDER ETOR</span><br><span class="line">WHERE 1 = 1</span><br><span class="line">AND ETOR.ETOR_ORDER_TYPE = &apos;1&apos;</span><br><span class="line">and etor.etor_status = &apos;NEW&apos;</span><br><span class="line">and (etor.etor_sum_end_time between sysdate - 1 and sysdate + 1)</span><br><span class="line">ORDER BY ETOR.MODIFY_TIME DESC) T__</span><br></pre></td></tr></table></figure></p>
+<p>查询的字段用到了T. *。加大了IO量，无用功，全表查询<br>在单表查询中，字段ETOR_ID是属于主键，主键是唯一非空值。为何还需要加DISTINCT？</p>
+<p>总结SQL 语句响应慢的原因有: </p>
+<ol>
+<li>全表扫描，没有索引或者没有用到索引 —建立增加索引；</li>
+<li>I/O 使用率繁忙、吞吐量小，形成了瓶颈效应 — 把数据、日志、索引放到不同的 I/O 设备上，增加读取速度；<br>3.使用了“&lt;&gt;” —–就不走索引；(Sqll语句中的不等于)</li>
+<li>like’%dd’百分号在前—–不走索引；</li>
+<li>not in ,not exist —–不走索引；</li>
+<li>查询出的数据量过大 —-根据查询条件,建立索引,优化索引、限制结果集的数据量 ；（分页取出结果）</li>
+<li>锁或者死锁 —优化 sql 语句；（索引）</li>
+<li>读写竞争资源 —-优化 sql 语句；？</li>
+<li>返回了不必要的行和列 —优化 sql 语句；（查询速度慢）</li>
+<li>DISTINCT比GROUP BY要慢—优化 sql 语句；</li>
+</ol>
 
       
     </div>
@@ -331,8 +339,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/05/谈谈罗子君和唐晶/" rel="next" title="谈谈《我的前半生》里的唐晶">
-                <i class="fa fa-chevron-left"></i> 谈谈《我的前半生》里的唐晶
+              <a href="/2018/03/20/谈谈WEB性能测试（二）/" rel="next" title="谈谈WEB性能测试（二）">
+                <i class="fa fa-chevron-left"></i> 谈谈WEB性能测试（二）
               </a>
             
           </div>
@@ -341,8 +349,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/05/英雄本色/" rel="prev" title="英雄本色">
-                英雄本色 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/20/MySQL-java连接被拒绝解决方案/" rel="prev" title="MySQL java连接被拒绝的解决方案（Access denied）">
+                MySQL java连接被拒绝的解决方案（Access denied） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -459,7 +467,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#九、一般的性能分析思路"><span class="nav-number">1.</span> <span class="nav-text">九、一般的性能分析思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#十、SQL慢分析"><span class="nav-number">2.</span> <span class="nav-text">十、SQL慢分析</span></a></li></ol></div>
             
 
           </div>
