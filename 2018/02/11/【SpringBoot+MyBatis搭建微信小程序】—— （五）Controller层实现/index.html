@@ -85,7 +85,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/02/11/【SpringBoot+MyBatis搭建微信小程序】—— （五）Controller层实现/index.html">
 <meta property="og:site_name" content="寂静的声音">
 <meta property="og:description" content="1. 在com.hq.demo下新建一个package 为web，并在web下新建一个AreaController类123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package com.hq.demo.web;import">
-<meta property="og:updated_time" content="2018-02-11T14:35:22.399Z">
+<meta property="og:updated_time" content="2018-03-20T14:25:03.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【SpringBoot+MyBatis搭建微信小程序】—— （五）Controller层实现">
 <meta name="twitter:description" content="1. 在com.hq.demo下新建一个package 为web，并在web下新建一个AreaController类123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package com.hq.demo.web;import">
@@ -299,7 +299,122 @@
 
       
         <h4 id="1-在com-hq-demo下新建一个package-为web，并在web下新建一个AreaController类"><a href="#1-在com-hq-demo下新建一个package-为web，并在web下新建一个AreaController类" class="headerlink" title="1. 在com.hq.demo下新建一个package 为web，并在web下新建一个AreaController类"></a>1. 在com.hq.demo下新建一个package 为web，并在web下新建一个AreaController类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hq.demo.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hq.demo.entity.Area;</span><br><span class="line"><span class="keyword">import</span> com.hq.demo.service.AreaService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by 01106066 on 2018/2/11.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/superadmin"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AreaController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AreaService areaService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/area"</span>,method = RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String,Object&gt; <span class="title">queryArea</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Map&lt;String,Object&gt; modelMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        List&lt;Area&gt; list = areaService.queryArea();</span><br><span class="line">        modelMap.put(<span class="string">"areaList"</span>,list); <span class="comment">//前台将会从areaList获取list</span></span><br><span class="line">        <span class="keyword">return</span> modelMap;</span><br><span class="line">    &#125;<span class="comment">//浏览器中输入http://localhost:9090/SpringBootDemo/superadmin/area可查看到信息</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/area/&#123;id&#125;"</span>,method = RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String,Object&gt; <span class="title">queryAreaById</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer areaId)</span>&#123;</span><br><span class="line">        Map&lt;String,Object&gt; modelMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Area area = areaService.queryAreaById(areaId);</span><br><span class="line">        modelMap.put(<span class="string">"area"</span>,area);</span><br><span class="line">        <span class="keyword">return</span> modelMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/area"</span>,method = RequestMethod.PUT)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String,Object&gt; <span class="title">insertArea</span><span class="params">(@RequestBody Area area)</span></span>&#123;</span><br><span class="line">        Map&lt;String,Object&gt; modelMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">boolean</span> result = areaService.insertArea(area);</span><br><span class="line">        modelMap.put(<span class="string">"success"</span>,result);</span><br><span class="line">        <span class="keyword">return</span> modelMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/area"</span>,method = RequestMethod.PATCH)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String,Object&gt; <span class="title">updataArea</span><span class="params">(@RequestBody Area area)</span></span>&#123;</span><br><span class="line">        Map&lt;String,Object&gt; modelMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">boolean</span> result = areaService.updateArea(area);</span><br><span class="line">        modelMap.put(<span class="string">"success"</span>,result);</span><br><span class="line">        <span class="keyword">return</span> modelMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/area/&#123;id&#125;"</span>,method = RequestMethod.DELETE)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String,Object&gt; <span class="title">deleteArea</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer areaId)</span>&#123;</span><br><span class="line">        Map&lt;String,Object&gt; modelMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">boolean</span> result = areaService.deleteArea(areaId);</span><br><span class="line">        modelMap.put(<span class="string">"success"</span>,result);</span><br><span class="line">        <span class="keyword">return</span> modelMap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-编写controller层的测试类"><a href="#2-编写controller层的测试类" class="headerlink" title="2. 编写controller层的测试类"></a>2. 编写controller层的测试类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//待补充</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-编写controller层的测试类"><a href="#2-编写controller层的测试类" class="headerlink" title="2. 编写controller层的测试类"></a>2. 编写controller层的测试类</h4><pre><code class="java"><span class="keyword">package</span> com.hq.demo.web;
+
+<span class="keyword">import</span> org.junit.Before;
+<span class="keyword">import</span> org.junit.Ignore;
+<span class="keyword">import</span> org.junit.Test;
+<span class="keyword">import</span> org.junit.runner.RunWith;
+<span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;
+<span class="keyword">import</span> org.springframework.http.MediaType;
+<span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;
+<span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc;
+<span class="keyword">import</span> org.springframework.test.web.servlet.setup.MockMvcBuilders;
+<span class="keyword">import</span> org.springframework.web.context.WebApplicationContext;
+
+<span class="keyword">import</span> java.time.LocalDateTime;
+<span class="keyword">import</span> java.time.ZoneId;
+<span class="keyword">import</span> java.util.Date;
+
+<span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.*;
+
+<span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+<span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+<span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+<span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+<span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+<span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+<span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+<span class="comment">/**</span>
+<span class="comment"> * Created by 01106066 on 2018/2/12.</span>
+<span class="comment"> */</span>
+<span class="meta">@RunWith</span>(SpringRunner.class)
+<span class="meta">@SpringBootTest</span>
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AreaControllerTest</span> </span>{
+
+    <span class="meta">@Autowired</span>
+    <span class="keyword">private</span> WebApplicationContext wac;
+    <span class="keyword">private</span> MockMvc mockMvc;
+
+
+    <span class="meta">@Before</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> </span>{
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
+
+    <span class="meta">@Test</span>
+    <span class="meta">@Ignore</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryArea</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{
+        String result = mockMvc.perform(
+                get(<span class="string">"/superadmin/area"</span>)
+<span class="comment">//                        .param("username", "jojo")</span>
+<span class="comment">//                        .param("age", "18").param("ageTo", "60").param("xxx", "yyy")</span>
+                        <span class="comment">// .param("size", "15")</span>
+                        <span class="comment">// .param("page", "3")</span>
+                        <span class="comment">// .param("sort", "age,desc")</span>
+                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath(<span class="string">"$.area.length()"</span>).value(<span class="number">2</span>))
+                .andReturn().getResponse().getContentAsString();
+
+        System.out.println(result);
+    }
+
+    <span class="meta">@Test</span>
+    <span class="meta">@Ignore</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryAreaById</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{
+        String result = mockMvc.perform(get(<span class="string">"/superadmin/area/2"</span>)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath(<span class="string">"$.area.areaName"</span>).value(<span class="string">"华北"</span>))
+                .andReturn().getResponse().getContentAsString();
+
+        System.out.println(result);
+    }
+
+    <span class="meta">@Test</span>
+    <span class="meta">@Ignore</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testInsertArea</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{
+        Date date = <span class="keyword">new</span> Date();
+        System.out.println(date.getTime());
+        String content = <span class="string">"{\"areaName\":\"华中\",\"priority\":0}"</span>;
+        String reuslt = mockMvc.perform(put(<span class="string">"/superadmin/area"</span>).contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content))
+                .andExpect(status().isOk())
+<span class="comment">//                .andExpect(jsonPath("$.success").value("true")</span>
+                .andReturn().getResponse().getContentAsString();
+
+        System.out.println(reuslt);
+    }
+
+    <span class="meta">@Test</span>
+    <span class="meta">@Ignore</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdataArea</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{
+        Date date = <span class="keyword">new</span> Date(LocalDateTime.now().plusYears(<span class="number">1</span>).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        System.out.println(date.getTime());
+        String content = <span class="string">"{\"areaId\":\"2\", \"areaName\":\"华中-更新\",\"priority\":1}"</span>;
+        String reuslt = mockMvc.perform(patch(<span class="string">"/superadmin/area"</span>).contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content))
+                .andExpect(status().isOk())
+<span class="comment">//                .andExpect(jsonPath("$.id").value("6"))</span>
+                .andReturn().getResponse().getContentAsString();
+
+        System.out.println(reuslt);
+    }
+
+    <span class="meta">@Test</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDeleteArea</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{
+        mockMvc.perform(delete(<span class="string">"/superadmin/area/6"</span>)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+    }
+
+
+}
+</code></pre>
+
       
     </div>
     
