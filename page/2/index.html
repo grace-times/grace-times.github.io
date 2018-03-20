@@ -181,7 +181,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -191,7 +191,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -214,6 +214,400 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/11/【SpringBoot+MyBatis搭建微信小程序】—— （二）表设计与实体类创建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Grace">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寂静的声音">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/11/【SpringBoot+MyBatis搭建微信小程序】—— （二）表设计与实体类创建/" itemprop="url">【SpringBoot+MyBatis搭建微信小程序】—— （二）表设计与实体类创建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-11T22:23:23+08:00">
+                2018-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="1-设计表"><a href="#1-设计表" class="headerlink" title="1. 设计表"></a>1. 设计表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`tb_area`</span>(</span><br><span class="line"><span class="string">`area_id`</span> <span class="built_in">int</span>(<span class="number">2</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line"><span class="string">`area_name`</span> <span class="built_in">VARCHAR</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`priority`</span> <span class="built_in">INT</span>(<span class="number">2</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'0'</span>,</span><br><span class="line"><span class="string">`create_time`</span> <span class="keyword">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</span><br><span class="line"><span class="string">`last_edit_time`</span> <span class="keyword">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'修改时间'</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (<span class="string">`area_id`</span>),</span><br><span class="line"><span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`UK_AREA`</span>(<span class="string">`area_name`</span>)</span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">1</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8 <span class="keyword">COMMENT</span>=<span class="string">'区域表'</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="2-创建实体类"><a href="#2-创建实体类" class="headerlink" title="2. 创建实体类"></a>2. 创建实体类</h4><p>DAO层设计，新建一个package，用来存放所有的实体类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hq.demo.entity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Area</span> </span>&#123;</span><br><span class="line"><span class="comment">//成员变量与数据库表的字段相对应，驼峰规则</span></span><br><span class="line">    <span class="keyword">private</span> Integer areaId;</span><br><span class="line">    <span class="keyword">private</span> String areaName;</span><br><span class="line">    <span class="keyword">private</span> Integer priority;</span><br><span class="line">    <span class="keyword">private</span> Date createTime;</span><br><span class="line">    <span class="keyword">private</span> Date lastEditTime;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAreaId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> areaId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAreaId</span><span class="params">(Integer areaId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.areaId = areaId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAreaName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> areaName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAreaName</span><span class="params">(String areaName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.areaName = areaName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getPriority</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> priority;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPriority</span><span class="params">(Integer priority)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.priority = priority;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Date <span class="title">getCreateTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> createTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCreateTime</span><span class="params">(Date createTime)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.createTime = createTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Date <span class="title">getLastEditTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> lastEditTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLastEditTime</span><span class="params">(Date lastEditTime)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.lastEditTime = lastEditTime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/11/SpringBoot+MyBatis搭建微信小程序】—— （一）搭建SpringBoot+MyBatis框架 ---/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Grace">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寂静的声音">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/11/SpringBoot+MyBatis搭建微信小程序】—— （一）搭建SpringBoot+MyBatis框架 ---/" itemprop="url">【SpringBoot+MyBatis搭建微信小程序】—— （一）搭建SpringBoot+MyBatis框架</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-11T22:21:49+08:00">
+                2018-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="需要用到的工具"><a href="#需要用到的工具" class="headerlink" title="需要用到的工具"></a>需要用到的工具</h4><p>JDK<br>STS:：<a href="http://spring.io/，一个类似于eclipse的工具" target="_blank" rel="noopener">http://spring.io/，一个类似于eclipse的工具</a>,  或者IDEA:<br>MySQL：</p>
+<h4 id="1-使用IDEA新建工程"><a href="#1-使用IDEA新建工程" class="headerlink" title="1. 使用IDEA新建工程"></a>1. 使用IDEA新建工程</h4><ol>
+<li>New Project</li>
+<li>Spring Installer –&gt; 选择JDK</li>
+<li>配置工程的group等</li>
+<li>选择Spring版本，配置Web，MyBatis，MySQL等</li>
+<li>工程命名</li>
+<li>Finish后记得配置本地的Maven（Setting–&gt; Maven）</li>
+</ol>
+<h4 id="2-如何启动工程"><a href="#2-如何启动工程" class="headerlink" title="2. 如何启动工程"></a>2. 如何启动工程</h4><p>在IDEA新建工程时，在src/main/java/<em>*</em>下会有一个DemoApplication类，内容如下，启动这个类即可。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果出现<strong>Cannot determine embedded database driver class for database type NONE</strong>的错误，在pom.xml中注释掉springboot mybatis 依赖就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;1.3.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>IDEA可以用Ctrl+/快速注释</p>
+<h4 id="3-写一个Hello的Controller"><a href="#3-写一个Hello的Controller" class="headerlink" title="3. 写一个Hello的Controller"></a>3. 写一个Hello的Controller</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/hello"</span>,method = RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello SpringBoot!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动工程，访问<a href="http://localhost:8080/hello即可看到结果" target="_blank" rel="noopener">http://localhost:8080/hello即可看到结果</a></p>
+<p>以上，就是一个简单的Demo了，后续的步骤仅仅作为定制化的需要</p>
+<h4 id="4-如何修改默认端口"><a href="#4-如何修改默认端口" class="headerlink" title="4. 如何修改默认端口"></a>4. 如何修改默认端口</h4><p>在src/main/resource目录下会有一个application.properties文件，加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server.port=9090</span><br></pre></td></tr></table></figure></p>
+<p>访问<a href="http://localhost:9090/hello即可看到结果" target="_blank" rel="noopener">http://localhost:9090/hello即可看到结果</a></p>
+<h4 id="5-如何访问路径修改"><a href="#5-如何访问路径修改" class="headerlink" title="5. 如何访问路径修改"></a>5. 如何访问路径修改</h4><p>如果想通过<a href="http://localhost:9090/SpringBootDemo/hello访问（即带上工程名）" target="_blank" rel="noopener">http://localhost:9090/SpringBootDemo/hello访问（即带上工程名）</a><br>在application.properties文件加入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server.context-path=/SpringBootDemo</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/曾国藩的转变/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Grace">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寂静的声音">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/05/曾国藩的转变/" itemprop="url">曾国藩的转变</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-05T00:50:12+08:00">
+                2018-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>小时候，我们姐妹几个经常会和长辈们坐一起唠嗑，为了激励我们几个好好学习，天天向上，长辈们经常给我们讲一些小故事，其中这个曾国藩因背书慢被小偷骂的故事记忆犹新。</p>
+<p>据说某天夜里，一个贼光顾了曾国藩的家里，躲在房梁上，准备趁着一家人睡着之后偷东西，当时曾国藩正在反复背诵《岳阳楼记》，“庆历四年春，滕子京谪守巴陵郡……”一遍，两遍，三遍……就是背不下来，也不肯去休息。小偷等的久了，又气又恼，终于忍不住跳出来，对着年轻的曾国藩大骂：“你这种水准，读什么书？我听你念了三遍就背出来的文章，你背了一个多时辰还背不出吗？”说完，还当着他的面，流畅地将文章背诵一遍，扬长而去。</p>
+<p>当时听的我们哈哈大笑，这个故事应该是杜撰的，只是为了凸显出曾国藩的“笨”，相比左宗棠，李鸿章这类晚清重臣，曾国藩的确显得有些“笨”，尤其是早期的他，显得有些单纯，不灵巧。</p>
+<p>曾国藩从小受的就是儒家教育，君君臣臣，父父子子，讲究每一个人恪守自己的本分，讲究克己复礼，追求文死谏，武死战，所以他对自己要求很严格，这无可厚非，可是现实世界是复杂的，不是每个人都会完完整整的遵循儒家的那一套，他却也用这种高要求去要求别人，这就难免让人觉得很不舒服。咸丰皇帝让他提点意见，他还真提，提了也就罢了，那意见还提的字字戳心，一把就把领导得罪了。对同僚也是如此，不符合他那一套道德标准的，直接打报告给皇帝，将对方革职查办了。对下属呢，辛辛苦苦打了胜仗，也不肯为他们谋取更多的好处，异常的严苛，最后闹的大家都不待见他。那个时候的曾国藩是真的很郁闷，从他的书信来看，多少次想要寻死的心都有。</p>
+<p>1856年，轰轰烈烈的天京事变，让朝廷觉得太平天国不过是秋后的蚂蚱，蹦跶不了几天了，于是曾国藩越发不受待见，灰溜溜的回湖南老家丁忧守孝去了。</p>
+<p>行至此处。一个坚持自己道德标准的人，错了吗？</p>
+<p>回家之后的曾国藩，再出山，已经是脱胎换骨，变了个人。他变得<strong>不再给人难堪</strong>，面对皇帝的瞎指挥，他不再是直言拒绝，而是玩起了太极，找各种借口去回避，甚至有些借口还很荒唐。别人给他送礼，他也不会不收，也不会全收，拿一小点意思意思，也不会去参别人一本。太平天国打下来之后，湘军瓜分了天京的金银珠宝，朝廷找他要银子，他拿不出，还因此赏赐降了一等。</p>
+<blockquote>
+<p><strong>一个人的精神境界想要上个层次，仅仅往外求，即通过各种各样生活方式的改变来逼自己改变，不是根本性的方法。根本性的方法，是对外人变得更加通达，是内心的容量变得充分放大。</strong></p>
+</blockquote>
+<p>《红楼梦》中的贾雨村，不知你是否还有印象，初入官场的他难免不懂规矩，很快就被人弹劾，丢官，只能去林如海家当林黛玉的老师。后来他凭借贾家的力量东山再起，在面对之前恩人甄士隐先生的女儿的案件时，他一步步被现实吞噬，最终沦为黑暗官场的一部分。</p>
+<p>表面上看起来，曾国藩似乎也是一步步的在“沦落”，那他与贾雨村之流的区别在哪里呢？那就是他仍然有自己的原则，对自己仍然有道德要求，甚至这种要求很严格，只不过，他不再用这样的要求去要求别人了。也就是那句老话了，严于律己，宽以待人。是不是你也和我一样，把一句耳详能熟的道理没当回事？</p>
+<p>我今天之所以写这些，是我看到了自己身上年轻时曾国藩的影子，一样的理想主义，也用自己内心的标准去要求别人，甚至还因此跟人起冲突，也让自己遭罪。</p>
+<p>可是现实世界是复杂的，每个人的经历感受都不一样，每个人面对现实世界所看到的也不一样，怎能用一套标准去要求所有人呢？水至清则无鱼，正是由于各式各样的人才组成了这个真实的活生生的世界。</p>
+<p>我想起了海瑞，一辈子的清官，成为了一个符号，挂在哪里，人们敬重他，他周围的人却远离他。我看《万历十五年》时，越发觉得最后复出的他显得悲凉，他的梦想破碎了。</p>
+<p>如果把现实世界当作煮沸的开水，有的人是胡萝卜，很快就炖成泥，既外化也内化，比如贾雨村。有的人是鸡蛋，很快就煮硬了，既不内化也不外化，比如海瑞。有的人是茶叶，片片叶子舒展开来，茶香四溢，外化而内不化，比如曾国藩。</p>
+<p>反省自身，以此自勉。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -257,7 +651,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-04T10:48:54+08:00">
                 2018-02-04
@@ -399,7 +793,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-23T21:23:06+08:00">
                 2018-01-23
@@ -569,7 +963,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T20:06:50+08:00">
                 2017-12-13
@@ -711,7 +1105,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-05T08:26:12+08:00">
                 2017-12-05
@@ -846,7 +1240,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-05T08:26:12+08:00">
                 2017-12-05
@@ -974,7 +1368,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-05T08:26:12+08:00">
                 2017-12-05
@@ -1103,7 +1497,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-05T08:26:12+08:00">
                 2017-12-05
@@ -1200,316 +1594,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/韩都衣舍/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Grace">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="寂静的声音">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/05/韩都衣舍/" itemprop="url">韩都衣舍：为组织赋能</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-05T08:26:12+08:00">
-                2017-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>之前在刘润的《趋势红利》中有看到过韩都衣舍这个组织创新红利的案例，今天恰巧在混沌听到韩都衣舍创始人赵迎光的分享，当我们在困惑于“大公司病”，困惑于组织效率低下的情形时，韩都衣舍这个案例或许会给予我们一定的启发。</p>
-<p>韩都衣舍成立于2008年，到目前为止，经历了重要的三个阶段。</p>
-<blockquote>
-<p>2008-2011：单品牌赋能平台阶段<br>2012-2015：多品牌赋能平台阶段<br>2016- ：开放式赋能平台阶段</p>
-</blockquote>
-<h3 id="单品牌赋能平台阶段"><a href="#单品牌赋能平台阶段" class="headerlink" title="单品牌赋能平台阶段"></a>单品牌赋能平台阶段</h3><p>在这一阶段主要是<strong>以小组制为核心的单品全程运营体系</strong>。从设计部，商品页面团队及对接生产和管理订单的部门中，各抽出一人组成三人小组，这些小组可以决定款式选择，定价，生产量和促销方案等，</p>
-<h4 id="自由自在"><a href="#自由自在" class="headerlink" title="自由自在"></a>自由自在</h4><p><strong>给予其足够大的自主权利并让其对经营结果负责</strong>，做的越好提成越多。<br><img src="/Users/grace/Desktop/WechatIMG3.jpeg" alt="WechatIMG3"></p>
-<p>每个经营小组跟摄影小组，生产小组直接对接，这些服务性的小组能力越强，接到的活就越多，收入也就越多。</p>
-<h4 id="重复分裂"><a href="#重复分裂" class="headerlink" title="重复分裂"></a>重复分裂</h4><p>韩都衣舍每日都会进行<strong>小组排名</strong>，排名靠前的奖金就会越多，在<strong>小组内奖金的分配也由组长决定</strong>。一般来说，做的好的时候，组长就多分一点给自己，做的不大好奖金少的时候自己就少分或者干脆不分。同时，允许一人小组的存在，也就是说允许小组的分裂和重新组合，这也是保持其基层活力的一个重要手段。</p>
-<p>小组的不断分裂与重组，会培养出不同水平的员工，进行自然的优胜劣汰。同时业绩导向的考核方法，反而可以确保各级管理人员的相对稳定。</p>
-<h4 id="韩都衣舍的平台支持"><a href="#韩都衣舍的平台支持" class="headerlink" title="韩都衣舍的平台支持"></a>韩都衣舍的平台支持</h4><p>集团总经办下设立品牌规划组与运营管理组等。比如品牌规划组会协助新品牌解决前期的市场调研，商标注册，知识产权保护等工作</p>
-<p>韩都衣舍目前有三百多个产品运营小组，每个小组由2-3名成员组成，负责产品设计，页面制作，货品管理等，<strong>在最小业务单元上实现“责，权，利”的统一，培养出在企业公共服务平台上的“自由经营体”</strong>。<br><img src="/Users/grace/Desktop/WechatIMG4.jpeg" alt="WechatIMG4"></p>
-<h3 id="多品牌赋能平台阶段"><a href="#多品牌赋能平台阶段" class="headerlink" title="多品牌赋能平台阶段"></a>多品牌赋能平台阶段</h3><p>当某一个产品小组做的非常棒，达到一定的指标之后，韩都衣舍会为其举行“成人礼”，也就是说允许这个产品小组有自己的子品牌，并可获得其子品牌的30%以内的利润。如果它的子品牌也做的非常好，就它就可以成立一家子公司，并获得子公司30%的股份。<br><img src="/Users/grace/Desktop/WechatIMG5.jpeg" alt="WechatIMG5"></p>
-<h3 id="开放式赋能平台阶段"><a href="#开放式赋能平台阶段" class="headerlink" title="开放式赋能平台阶段"></a>开放式赋能平台阶段</h3><p>这一阶段主要是结合互联网技术，提升组织效率和业务能力。实现标准化的工作交给系统，非标准化的工作交给小组。比如利用商业智能能够辅助业务经营决策等。<br><img src="/Users/grace/Desktop/WechatIMG6.jpeg" alt="WechatIMG6"></p>
-<p><img src="/Users/grace/Desktop/WechatIMG7.jpeg" alt="WechatIMG7"></p>
-<p><img src="/Users/grace/Desktop/WechatIMG8.jpeg" alt="WechatIMG8"></p>
-<p><img src="/Users/grace/Desktop/WechatIMG9.jpeg" alt="WechatIMG9"></p>
-<p><img src="/Users/grace/Desktop/WechatIMG10.jpeg" alt="WechatIMG10"></p>
-<p><img src="/Users/grace/Desktop/WechatIMG11.jpeg" alt="WechatIMG11"></p>
-<h3 id="我想说"><a href="#我想说" class="headerlink" title="我想说"></a>我想说</h3><p>韩都衣舍从创立之初便是赋能型服务结构，这与我们所常见的金字塔式的科层制管理结构不同，这种赋能型服务结构讲究开放共赢，强调为自己干，是一个以客户为中心的自主经营体。而科层制管理结构则是为企业干，由企业来分钱分资源。如果一个原本是科层制管理结构的企业想要转变，想要激发组织活力，跨入到赋能型服务结构，这个难度非常大，原有的路线，已有的资源会限制它，甚至被迫不得不回到原地，但也有很好的案例——海尔，有兴趣的可以研究下海尔的“平台+小微企业”模式。</p>
-<p>这是种利用人性“趋利避害”的特点来做管理。我们必须承认，绝大多数人只有在为自己干，为自己争取利益时才是积极的。从古时的井田制到家庭联产承包责任制都是如此。</p>
-<p>但是，这样子会引发另外一个现象，那就是强者愈强，弱者愈弱。这种时候要怎么办？我之前在威尼斯的那篇文章中说过威尼斯是如何保持上下层流动活力的，处于底层的没钱的可以出力，有钱的就出钱，经商贸易达成合作，创造共赢，以此，底层也可以通过自己的努力进入中上层。而在韩都衣舍这样一个平台里，公司也配备了相应的制度，让弱的小组也获得资源，有希望成为强的组。</p>
-<p>互联网的出现不仅仅是改变了我们的生活方式，也让我们每一个个体可以有自己的品牌，越来越多的人选择U盘化生存，这也给传统的科层制管理带来挑战。如果你是一位传统管理者，当你在感叹下属越来越难管的时候，“赋能”这个词或许能给你启发。</p>
-<blockquote>
-<p>“未来企业最重要的功能：是赋能，而不是管理。” —— 赵迎光</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/集思广益荐书/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Grace">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="寂静的声音">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/05/集思广益荐书/" itemprop="url">集思广益荐书</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-05T08:26:12+08:00">
-                2017-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>之前参加《跃迁》的共读活动，有一处环节是大家各自推荐一本受益最多，对自己影响最大的书，我当时觉得特别精彩，想要整理出来，不巧那个时候一个电话打进来，这件事就扫进我记忆的黑洞了。今日重新想起，弥补一下之前漏掉的事。</p>
-<p>这里面有很多我们耳熟能详的书，包括《高效能人士的七个习惯》《精进》古典《跃迁》系列《卓有成效的管理者》《自控力》《小王子》《三体》等等，这些已经非常热门甚至有点烫手的好书就不再赘述，以下是我筛选出来的一份清单，以供参考。</p>
-<p>网友Panda张：《DISCover自我探索》曾经从技术转销售，吃了不少沟通的亏，也努力读了很多有关沟通的书，但对我的改善和帮助并不多。直到看了这本书，学习了一个叫<strong>DISC的工具，才真的理解什么叫换位思考，以及如何以对方习惯的方式去影响他人</strong>！真的帮我从一个嘴笨的人，跃迁成为善沟通的人！（给我带来跃迁的书很多，如果非要选一本的话一定是它）</p>
-<p>网友喵酱🐱：《沟通的艺术：看入人里，看出人外》，目前已经再版14次了，是几个国家学习沟通的教科书。我无比欣赏这本书的一点就是，这本书用了大量的篇幅引导读者发现情绪和理解情绪。作者认为，一次沟通中，如果情绪立场坍塌了，那么沟通再说什么都无济于事了。这样的理论和我不谋而合。这本书最大的优势在于，他<strong>有着完整的理论体系，具体的分析，然后实际的运用。帮助我学会沟通的方法</strong>。</p>
-<p>网友lily：生完娃看了《非暴力沟通》，才知道<strong>提出自己的需求如此重要</strong>，才知道自己与爱人沟通中自己存在了哪些问题，渐渐的知道了能够明确提出需求也不是一件容易的事儿，随之我开启了自我成长模式。不再盯着免费微课，关注得到，订阅超级个体，想成为更好的自己。</p>
-<p>网友虔诚之心：美国罗杰.道森写的《优势谈判》让脑洞大开，不管是说服还是销售，还是商务谈判，还是对人和事的<strong>理性判断</strong>，都上了一个台阶。结果我老婆也会了，作为女性的独立也让我惊讶，我经常在很多问题上说不过她。我是终于明白作者为什么说它是一把双刃剑，一再强调互利互惠互利共赢了。</p>
-<p>网友行走的肥肉：改变自己，就意味着属于自己的那个版本的世界将会随之而变，其中也包括时间的属性。<strong>开启自己的心智</strong>，让自己能够用最可能准确的方式思考、观察、记录、总结、分享和行动，那么自己的时间就会拥有不同的质量，进而整个生活都必然因此焕然一新。——摘自李笑来老师《把时间当作朋友》</p>
-<p>网友包嘉Bojoly：《零秒思考》，<strong>如何快速思考，做出决断</strong>，既给出了理论依据，有提供了详细的方法，对锻炼自己思考能力很有帮助。思考停留在脑海里会比较模糊，当书写下来后，就会更加清晰。通过一张A4纸，短短几分钟，就可以锻炼自己快速思考的能力。《零秒思考》助我在思考能力上实现跃迁。</p>
-<p>网友王志刚：前几年读《少有人走的路》，那时候工作的同时，也在恋爱，自己很痛苦。工作上没有进步，着急，爱情上也总是争吵。看完书我领悟到，自律才能给我自由，而首先要做的就是延迟满足，跳出自己的舒适区。同时对爱的解读也让我很震撼，<strong>爱，是一个动词，是为了促进自己和对方心智成熟，而不断拓展自我界限，实现自我完善的一种意愿。原来爱并不是每天甜蜜，而是不断拓宽自己</strong>。通过这两个点，我完成了自己工作上和爱情上的跃迁。4年前就开始创业，今年要准备结婚了，8年不易，且行且珍惜。</p>
-<p>网友真鱼的微信💎：我是想到的是《修炼当下的力量》这本书，它带给我的“跃迁”在于让我体验到<strong>自己不再是仅仅活在头脑胡思乱想的世界里，而是更多的将意焦专注于当下的每一件事情上之上，即便是刷牙那么件的小事，从而降低了浮躁感</strong>，我觉得这算是一种精神或心灵层面上的“跃迁”吧…</p>
-<p>网友阿媛Shelly：《对伪心理学说不》，虽拿了理学学位，还有了保研资格。但这本书才<strong>让我思考什么科学</strong>。并获得一种思维方式，若神器屠龙刀。面对庞大纷繁的信息，用此刀一劈，总能获得一路径。轻快好省啊！</p>
-<p>网友静静：《遇见未知的自己》张德芬，<strong>将投射到外界的习惯转换成向内寻求</strong>，自己选择后果自负，心态上有了明显的跃迁</p>
-<p>网友👼 明晓|小莫：《相约星期二》不同阶段读，不同的人生感悟。<br><strong>我们学习了那么多方法论，最终恐怕还不如问问自己的初心</strong>。初心就是头部，而我们自己真正的头部很多时候一直都藏在我们心底。如果说《跃迁》这本书是站在商业角度在教你如何做职业规划，那么《相约星期二》就是在告诉你，在通往幸福的路上如何实现跃迁~</p>
-<p>网友安澈大C兄：《小狗钱钱》是一本儿童读物，但却带来给我这个成年人很大的反思。前段时间其实对我的财务和人生都陷入了迷思，从这本书开始我的财富之路！</p>
-<p>网友严贤平：新版《一分钟经理人》，从中学到<strong>管理的精髓</strong>，一分钟目标，一分钟称赞，一分钟更正，激发自己的内燃机产生自驱力，快速迭代。</p>
-<p>网友钓雪：有本书叫做《枪炮、病菌与钢铁》，虽然名字不好记，不过内容真的很精彩，尤其是对我这样一个喜欢地理和历史的人来说，这本书交给了我什么叫做：<strong>合理大胆的猜想与细致严谨的分析</strong>。对于喜欢历史推断的人来说也可以有很多借鉴。</p>
-<p>网友弋天：最早给我带来跃迁的是赵周老师的《这样读书就够了》，我读了很多年书，但是总是陷入低水平勤奋的陷阱，把每本书一页一页从头到尾读完，然后就放到书架上再也不会打开了。赵周老师在书里介绍了一<strong>个“拆书”学习法，把书中的知识拆为己用，不必再去死读书，读死书</strong>，很受用。之后又看了很多书，学到很多知识，直到最近读到古典老师的《跃迁》。完成了一次知识系统性的整合。</p>
-<p>网友小文老师-WINOR：推荐《金字塔原理》，一本非常经典的思维书，读完后在工作中，生活中都用<strong>结构化思维去思考和行动</strong>，对我思维跃迁帮助很大</p>
-<p>网友印：让我感到跃迁的是一本今年的新书——《思维力》，这本书<strong>将解决问题的思路给理清楚了</strong>，先界定问题，可以通过问5个why与5w2H手段探究问题，同时弄清楚背后的隐含假设，将问题描述清楚。分析问题，可以运用自上而下或者自下而上的框架来分析，同时各行各业的经典框架也很有效果。解决问题的关键在于运用二八定律，抓住关键部分，高效执行，同时借助PDCA反馈做调整。看完这本书，对我解决问题的思路和方法，有很大提升。</p>
-<p>网友💋pheonix💗：记得那是初中时候，刘墉先生的《萤窗小语》带给我很多思考。言简意赅却句句精辟，让我在今后的学习和生活中有了不一样的格局。很感谢那时候读到了这样的书，谢谢初中的挚友。</p>
-<p>网友单曲循环：超级喜欢奶茶刘若英的《我敢在你怀里孤独》，里面收录了刘若英和很多好友的对话以及自己一个人的独白，<strong>深度的剖析了相处和独处</strong>，感觉是我一个人那段孤独时间收到的最好的礼物。</p>
-<p>网友振东智华⁰⁰²⁶：《海底两万五千里》，她让一个农村小女孩开始一步步，跌跌撞撞地，无所畏惧地奔向一个又一个未知领域，犹如神祗指引。</p>
-<p>网友一夜长风飘：《悟空传》里有很多名言，对我最有帮助的却是这句：<strong>”你以为你有很多路可以选择，但是在你四周有很多看不见的墙，其实你只有一条路可以走”</strong>。当时正处于大学刚毕业找工作很迷茫的时候，很悲观，四处碰壁，看完深思后感觉多了很多正能量。</p>
-<p>网友Charles：《你的灯亮着吗？》看过这本书后，我仿佛有了上帝视角，遇到问题按照书中的方法论去做，内心因为有了“套路”，所以出手更加自信。<br>ps：这本书给我最大的感触就是，<strong>解决一个问题前先确认一下别人是否真的想解决这个问题</strong>，还是只是想倾诉一下。</p>
-<p>网友Cain：《微习惯》不是很大部头的书，但<strong>改变了我囿于自尊的思维方式</strong>，让我从自我损耗的恶性循环中走了出来，慢慢又有持久力得好起来</p>
-<p>网友梁秋实：那么就写两本关于历史书吧 ，一本让我愤怒，一本让我平静、欣喜：<br>（1）中学时期，读过一本余杰写的《铁屋中的呐喊》，当时觉得其中关于政治、历史、人性的描绘是那么深刻，中国的古今历史竟然都是那么黑暗，正值青春期，觉得发现了这个世界深深的黑暗，于是充满了年轻人的愤怒；<br>（2）去年读了一本台湾作家薛仁明写的《其人如天 史记中的汉人》，从作者传神的文字中体会到汉人敞亮饱满的魂魄，如萧规曹随中的曹参体现出来的坤道，早年成名的孔子受到老子当头棒喝的场景，看似无赖实则伸缩自如的刘邦，第一次读到这种<strong>宏大的旷达的历史视角</strong>，这些人物的特点可以在当今国人的身上都有体现，实在让人开心，对于历史又有了新的认识，更为饱满立体，心态更为旷达</p>
-<p>网友Youkey-L：几年前读《1984》，读完后很震惊，意识到<strong>人性是经不起考验的</strong>，不要去考验人性，不然会很失望（甚至绝望）；对于人性的一些特点，还是包容一些好。好的坏的，多样的，才鲜活。<br>还有一个感悟就是：<strong>有些好书，也许一开始可能根本看不下去，但坚持看完真的会很有收获</strong>。比如这本1984，一开始翻几页觉得没意思，但想着既然买回来了，很多人也都推荐，怎么也要看看，就打算倒着看，结果倒着看也看不下去，就扔在一边，后来在网上找到根据小说拍的电影，就把电影看了，看完电影，发现好多情节看不懂，不明白是怎么回事，这下就激起了好奇心，开始回去翻小说，找原因，在这种情况下再读小说，就觉得情节引人入胜了，如饥似渴的就看完了</p>
-<p>网友海棠：萧秋水《这一生，静待时光检验》，一开始只是被教主的文风和魅力吸引，后来通过教主知道了了秋叶大叔、古典大侠、彭小六、猫叔等一众牛人，真的是开启了一扇大门，从此彻底改变了自己的人生路径。</p>
-<p>网友ZL小左：《今夜加油站遇见苏格拉底》，看完的时候惊为天人，该书还是很套路的，主要是讲身心灵合一的故事。但又不太走寻常路，因为它真的能带动读者进行深入思考，<strong>考虑自己和世间万物的关系，以及和内心的对话</strong>。</p>
-<p>网友哎~呦：最近读的一本，对我颠覆比较大的书，就是《越读者》，之前读过《如何阅读一本书》，对不同主题的书怎样去读，有了一个初步的概念，而这本书通过自己多年的经验进一步阐述了<strong>如何阅读各类书，促使我改变了阅读的心态，方式方法</strong>。</p>
-<p>网友宝华乾坤：《传习录》，在而立之年颠覆了我过去的认知，从此对很多事情的看法豁然开朗，打破了很久以来的自缚和局限思维。从此但凭良知做事，<strong>更加懂得了如何追求知行合一</strong>。</p>
-<p>网友步步：带给我跃迁的一本书是《人生神奇的24堂课》，这是一本神奇的类似于理科写代码 一段一段文字组合而成的书。如果要心想事成就要合乎宇宙最高法则，正能量满满，<strong>对想要的东西有目标有模型，以终为始的去达到</strong>。</p>
-<p>网友李春美：曾经的我非常焦虑，试了许多办法始终无法彻底解决心灵层面的焦虑。看了海蓝博士的《不完美 才美》里谈到<strong>自我关怀</strong>，一步步学习和实践，内心变得越来越强大，遇到一些事情也能从容面对；遇到棘手的问题也不会那么紧张焦虑，而是第一时间进行分析、调动一切可以调动的资源想办法解决问题，行动起来，不断汲取正向的力量。</p>
-<p>网友刘学承：老实说，《大目标——我们与这个世界的政治协商》是我进入正循环系统（读好书，交好友，用好方法等），迭代成长的引爆点。早在两年前，我其实已经接触到了古典古大大，李笑来，刘伟鹏，战隼，秋叶等人，书也看过文章也读过，方法也知道——但基本都留在框架层面，没有落实。现在知道是自己没有明确的愿景，但是当时坐井观天，安于现状——准确来说是不知道自己更好的“现状”可以是怎样的——改变动力不大。即便后来遇到一系列问题也没有打破这旧生活的惯性。直到任冲昊（笔名：马前卒）等主编的《大目标》摆在了我的案头，几乎是一鼓作气读完了这本书，<strong>没有方法论，赤裸裸的世界观，可就是这“粗颗粒历史观”和与自己生存如此贴近的世界观让我突然之间站在了一个山坡顶上，原来我只是漫漫长路的一个小点</strong>，呐，就在那儿！如此清楚，以至于我想把自己走过的路从头到尾梳理一下；把自己要走的路描绘一下。愿景如此强烈，使得我重新拿起那些我厌烦的方法论，重新认识古大大等这批“导师”，重新实践他们苦口婆心介绍的方法。真的很幸运，我走上了迭代成长这条路，不再是观众。<br>最后，衷心感谢任冲昊老师，是《大目标》用令人澎湃的世界观把我引上成长之路；衷心感谢古典老师的《超级个体》和《跃迁》，让我有能力在成长这条路上走下去，不断地走下去。<br>世界就是这样，无论怎样，总有美好的等着自己。感恩！</p>
-<p>网友黄慧仙：《重新认识你自己》（克里希那穆提著）只有<strong>先具备了关怀之心才能全神贯注</strong>；<strong>喜悦</strong>不是想出来的，而是当下直接的感受，你一去想它，它就立刻转为快感；<strong>冥想</strong>是用所有的注意力，整体而并非局部地觉察每一件事，没有任何人能教人如何这般全神贯注；能够看到自己的本来面目而不与人相比，就能产生巨大的心理能量去观察一切。</p>
-<p>网友鲍林峰：《修炼当下的力量》刷新了我对世界的认识，从此遇问题向内求；《跃迁》和李中莹《重塑心灵》中的系统性思维，帮助我破除了一个限制性信念，打开了我的心结。</p>
-<p>网友mary：《好妈妈胜过好老师》让我明了<strong>养育的底层逻辑</strong>；我这个答案会不会比较另类，在养育孩子的路上，看过许许多多的育儿书籍，这是唯一一本能留下来，时不时可再翻阅的书，也因此入了它的另外两本姐妹篇，推荐有小孩的都买来看看；育人亦育己</p>
-<p>网友孙阳春：《人类简史》用不一样的视角阐述人类的历史，其中有三个地方给我冲击最大！<br>第一个冲击就是，智人每到一个地方，那么那里的人种就会灭绝。改变我对人类爱好和平的认知。<br>第二个具有爆炸性威力的概念就是<strong>“共同想象”</strong>。它让成千成万的陌生智人能一起参与大规模协作（注意，参与者与参与者之间是陌生人）。而之前基本上都是熟人与熟人协作，而总人数数不会超过邓巴数——150。<br>第三个类似于原子弹给我的冲击就是，生命不会灭绝，而人类可能会灭绝。这改变了我对生命的看法，原来我们只不过是生命进化的一环，以后肯定有比人类更加厉害的生物出现，或者半人半机械的人类。也就是说，<strong>我们不用对未来太过恐惧，因为最坏的结果也就是那样，为何不乐观点呢？</strong></p>
-<p>网友luella：推荐：<br>《思考，快与慢》中信版本<br>《快思慢想》台版<br>《Thinking Fast and Slow》英文版<br>理由：<br>1.推荐了三个版本，因为经常因为翻译问题导致对误解，适合三个版本一起学习。<br>2.这书彻底改变了我的思考方式，<strong>学会慢思考，避开直觉偏见，理性高效决策</strong>。也是第一本认真读的书（发现以前的读书都不叫读书）。<br>3.它揭示的是思考的底层逻辑，行为的底层规律。而底层知识的学习积累是最高效的知识，它能撬动解释现实世界的众多现象和问题。</p>
-<p>网友万里：推荐书《好好学习》陈甲<br>从底层逻辑出发，从学习的本质来论述什么是知识，作者指出能够改变行动的才是知识，又讲了临界知识的概念，让我对知识的概念又深一步的去理解了。<br>在书本最后讲了如何复盘，用反思来改进自己的学习过程，提出了知识黄金圈，知识是做到的智慧，而不是听到和想到。这本书我之字不差的读完了，读书笔记也发在了朋友圈。全部都是问题指向型，<strong>也许本书未必让你学到知识，到一定会让多一点对学习的思考</strong>。</p>
-<p>网友玲玲：《极简生活法则》中，同样<strong>将逃离舒适区，作为一条重要的生活法则</strong>。 我们人生中所有的限制，其实或多或少都是自己给自己订立的。每个人都有一个温暖、安全、干燥的舒适区，但我们必须经常走出去，去接受外面的挑战和刺激，这样做才能保持活力和自信。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1555,8 +1644,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -1608,7 +1697,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 

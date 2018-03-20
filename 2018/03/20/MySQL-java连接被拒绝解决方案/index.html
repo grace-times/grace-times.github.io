@@ -79,16 +79,19 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troublesho">
+<meta name="description" content="问题背景12//系统运行出现错误：java.sql.SQLException: Access denied for user &amp;apos;root&amp;apos;@&amp;apos;*** (using password: YES) MySQL服务器部署在CentOS上，错误中被我隐掉的是我的主机名 方案">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/12/05/hello-world/index.html">
+<meta property="og:title" content="MySQL java连接被拒绝的解决方案（Access denied）">
+<meta property="og:url" content="http://yoursite.com/2018/03/20/MySQL-java连接被拒绝解决方案/index.html">
 <meta property="og:site_name" content="寂静的声音">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-12-05T00:26:12.375Z">
+<meta property="og:description" content="问题背景12//系统运行出现错误：java.sql.SQLException: Access denied for user &amp;apos;root&amp;apos;@&amp;apos;*** (using password: YES) MySQL服务器部署在CentOS上，错误中被我隐掉的是我的主机名 方案一 先在命令行登录 -u root -p ```122. 给指定的用户赋予权限  ``` GRANT A">
+<meta property="og:image" content="http://yoursite.com/uploads/photo/2018/4f1b78e0-1190-4a9b-8eaa-9c9bc4fd138c.png!large">
+<meta property="og:image" content="http://yoursite.com/uploads/photo/2018/a37fa4fc-cf29-40bb-ac28-1c4b98074000.png!large">
+<meta property="og:updated_time" content="2018-03-20T15:03:20.061Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="MySQL java连接被拒绝的解决方案（Access denied）">
+<meta name="twitter:description" content="问题背景12//系统运行出现错误：java.sql.SQLException: Access denied for user &amp;apos;root&amp;apos;@&amp;apos;*** (using password: YES) MySQL服务器部署在CentOS上，错误中被我隐掉的是我的主机名 方案一 先在命令行登录 -u root -p ```122. 给指定的用户赋予权限  ``` GRANT A">
+<meta name="twitter:image" content="http://yoursite.com/uploads/photo/2018/4f1b78e0-1190-4a9b-8eaa-9c9bc4fd138c.png!large">
 
 
 
@@ -118,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/05/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/20/MySQL-java连接被拒绝解决方案/"/>
 
 
 
 
 
-  <title>Hello World | 寂静的声音</title>
+  <title>MySQL java连接被拒绝的解决方案（Access denied） | 寂静的声音</title>
   
 
 
@@ -231,7 +234,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/MySQL-java连接被拒绝解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Grace">
@@ -248,7 +251,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">MySQL java连接被拒绝的解决方案（Access denied）</h1>
         
 
         <div class="post-meta">
@@ -260,8 +263,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-05T08:26:12+08:00">
-                2017-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-20T22:51:15+08:00">
+                2018-03-20
               </time>
             
 
@@ -298,15 +301,21 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h3 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//系统运行出现错误：</span><br><span class="line">java.sql.SQLException: Access denied for user &apos;root&apos;@&apos;*** (using password: YES)</span><br></pre></td></tr></table></figure>
+<p>MySQL服务器部署在CentOS上，错误中被我隐掉的是我的主机名<br><img src="/uploads/photo/2018/4f1b78e0-1190-4a9b-8eaa-9c9bc4fd138c.png!large" alt=""></p>
+<h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><ol>
+<li><p>先在命令行登录</p>
+<figure class="highlight plain"><figcaption><span>-u root -p ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 给指定的用户赋予权限</span><br><span class="line">  ``` GRANT ALL PRIVILEGES ON *.* TO &apos;leechdb&apos;@&apos;%&apos; IDENTIFIED BY &quot;leechdb&quot; ;</span><br></pre></td></tr></table></figure>
+<p>IDENTIFIED BY后面的是对应用户的密码</p>
+</li>
+<li><p>刷新</p>
+<figure class="highlight plain"><figcaption><span>privileges; ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  ![](/uploads/photo/2018/cf180adb-97c5-4cfd-97a6-d3c88eba104d.png!large)</span><br><span class="line"></span><br><span class="line">### 方案二</span><br><span class="line">jdbc.properties文件配置中username关键字与其他的有冲突，最好自己定义下</span><br><span class="line">参考：https://www.cnblogs.com/wozixiaoyao/p/5751108.html</span><br><span class="line"></span><br><span class="line">我的spring-config-datasource.xml 文件</span><br><span class="line">![](/uploads/photo/2018/64f4d26b-d16f-4585-a099-2b26956b0b80.png!large)</span><br><span class="line">我的jdbc.properties文件</span><br><span class="line">![](/uploads/photo/2018/3069ad95-6f1c-4199-a5c7-79925eec6d2e.png!large)</span><br><span class="line"></span><br><span class="line">### 方案三</span><br><span class="line">在尝试了前面两种方案都不行的情况下，在Navicat下执行以下动作</span><br></pre></td></tr></table></figure>
+<p>SELECT * FROM mysql.user WHERE USER=’root’ ;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">结果如下：</span><br><span class="line">![](/uploads/photo/2018/0c4c626d-4a79-4efd-b667-cf977c923cad.png!large)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">``` sql</span><br><span class="line"> GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;192.168.107.61&apos; IDENTIFIED BY &apos;root&apos;;</span><br><span class="line"> FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>按理应当如下：<br><img src="/uploads/photo/2018/a37fa4fc-cf29-40bb-ac28-1c4b98074000.png!large" alt=""></p>
+<p>然而，不知道什么原因，并没看到最后那条数据<br>于是，就有了一个暴力的方法：<strong>直接insert一条数据，问题解决</strong>。</p>
 
       
     </div>
@@ -331,8 +340,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/05/谈谈罗子君和唐晶/" rel="next" title="谈谈《我的前半生》里的唐晶">
-                <i class="fa fa-chevron-left"></i> 谈谈《我的前半生》里的唐晶
+              <a href="/2018/03/20/谈谈WEB性能测试（一）/" rel="next" title="谈谈WEB性能测试（一）">
+                <i class="fa fa-chevron-left"></i> 谈谈WEB性能测试（一）
               </a>
             
           </div>
@@ -341,8 +350,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/05/英雄本色/" rel="prev" title="英雄本色">
-                英雄本色 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/20/Python + Appium一个简单的Demo/" rel="prev" title="Python + Appium一个简单的Demo">
+                Python + Appium一个简单的Demo <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -459,7 +468,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题背景"><span class="nav-number">1.</span> <span class="nav-text">问题背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案一"><span class="nav-number">2.</span> <span class="nav-text">方案一</span></a></li></ol></div>
             
 
           </div>
